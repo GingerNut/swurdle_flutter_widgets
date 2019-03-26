@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'board.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
 class GameScreen extends StatelessWidget {
+
 
 
   @override
@@ -51,7 +53,7 @@ class Body extends StatelessWidget{
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         TopBar(),
-        Board(800,600),
+        FlutterBoard(800,600),
         BottomBar(),
       ],
     );
@@ -104,67 +106,6 @@ class TopBar extends StatelessWidget{
 }
 
 
-
-class Board extends StatelessWidget{
-
-  final double height;
-  final double width;
-
-  Board(this.height, this.width);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Expanded(
-      child: Container(
-        color: Colors.lightGreenAccent,
-        child: FittedBox(
-          child: SizedBox(
-            height: height,
-            width: width,
-
-            child: Stack(
-              children: <Widget>[
-
-                Positioned(
-
-                  top: 20,
-                  left: 50,
-                  child: Container(
-                    color: Colors.green,
-                    child: Text('Hello'),
-
-                  ),
-
-
-
-                ),
-
-                Positioned(
-
-                  top: 790,
-                  left: 550,
-                  child: Container(
-                    color: Colors.green,
-                    child: Text('Hello'),
-
-                  ),
-
-
-
-                )
-
-              ],
-
-            ),
-          ),
-        ),
-      ),
-    );;
-  }
-
-
-}
 
 class BottomBar extends StatelessWidget{
   @override
