@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'board.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
 class GameScreen extends StatelessWidget {
+
+  final FlutterInterface ui;
+
+  const GameScreen(this.ui);
 
 
 
@@ -33,7 +38,7 @@ class GameScreen extends StatelessWidget {
 
       home:  Scaffold(
 
-        body: Body(),
+        body: Body(ui),
       ),
     );
   }
@@ -44,6 +49,12 @@ class GameScreen extends StatelessWidget {
 
 
 class Body extends StatelessWidget{
+
+  final FlutterInterface ui;
+
+  const Body(this.ui);
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -53,7 +64,7 @@ class Body extends StatelessWidget{
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         TopBar(),
-        FlutterBoard(800,600),
+        FlutterBoard(ui),
         BottomBar(),
       ],
     );

@@ -1,13 +1,22 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:swurdle_flutter_widgets/flutter_interface.dart';
+import 'package:swurdle_flutter_widgets/hexagon.dart';
 
 class FlutterBoard extends StatelessWidget{
 
-  final double height;
-  final double width;
+  final FlutterInterface ui;
 
-  FlutterBoard(this.height, this.width);
+  List<FlutterHexagon> hexagons = new List();
+
+
+  FlutterBoard(this.ui){
+    ui.game.board.tiles.forEach((t){
+      hexagons.add(FlutterHexagon(t,ui));
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,41 +26,13 @@ class FlutterBoard extends StatelessWidget{
         color: Colors.lightGreenAccent,
         child: FittedBox(
           child: SizedBox(
-            height: height,
-            width: width,
+            height: ui.verticalSize,
+            width: ui.horizontalSize,
 
             child: Stack(
-              children: <Widget>[
-
-                Positioned(
-
-                  top: 20,
-                  left: 50,
-                  child: Container(
-                    color: Colors.green,
-                    child: Text('Hello'),
-
-                  ),
 
 
-
-                ),
-
-                Positioned(
-
-                  top: 790,
-                  left: 550,
-                  child: Container(
-                    color: Colors.green,
-                    child: Text('Hello'),
-
-                  ),
-
-
-
-                )
-
-              ],
+              children: [hexagons[26]],
 
             ),
           ),

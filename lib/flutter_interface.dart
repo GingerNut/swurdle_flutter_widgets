@@ -6,7 +6,8 @@ import 'package:swurdlelogic/swurdlelogic.dart';
 
 class FlutterInterface extends Interface{
 
-
+  double horizontalSize = 600;
+  double verticalSize = 800;
 
   @override
   loadGraphics() {
