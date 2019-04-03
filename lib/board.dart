@@ -14,7 +14,7 @@ class FlutterBoard extends StatelessWidget{
 
     FlutterInterface ui = UI.of(context).ui;
 
-    ui.game.board.tiles.forEach((t){
+    ui.tiles.forEach((t){
       hexagons.add(FlutterHexagon(t,ui));
     });
 
@@ -29,8 +29,7 @@ class FlutterBoard extends StatelessWidget{
 
             child: Stack(
 
-
-              children: [hexagons[26]],
+              children: hexagons,
 
             ),
           ),

@@ -30,7 +30,6 @@ class HexState extends State<FlutterHexagon>{
   double homeY;
   double defaultScale;
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -60,10 +59,6 @@ class HexState extends State<FlutterHexagon>{
 
 
 
-
-
-
-
   setVariables(){
     const padding = 1.0;
     const horizontal_packing = 0.75;
@@ -71,7 +66,7 @@ class HexState extends State<FlutterHexagon>{
 
 
 
-    hexSize = min(ui.horizontalSize / ui.game.size * root3over2 /1.63, ui.verticalSize/ ui.game.size * root3over2 / 1.45);
+    hexSize = min(ui.horizontalSize / ui.game.size * root3over2 /2.7, ui.verticalSize/ ui.game.size * root3over2 / 2.5);
 
     hexSize /= 1.8;
 
@@ -81,14 +76,9 @@ class HexState extends State<FlutterHexagon>{
     double horizontalPadding = (ui.horizontalSize - hexagonSpacingHorizontal * ui.game.size)/2;
     double verticalPadding = (ui.verticalSize - hexagonSpacingVertical * ui.game.size)/2 ;
 
-
-
     homeX = tile.i * hexagonSpacingHorizontal + hexagonSpacingHorizontal ;
     homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical ;
     if(tile.i.isEven) homeY += verticalPadding/2;
-
-    print('${tile.k} $homeX $homeY');
-
 
     defaultScale = 0.78;
   }
