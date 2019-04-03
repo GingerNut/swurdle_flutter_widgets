@@ -22,7 +22,7 @@ class FlutterHexagon extends StatefulWidget{
   }
 
   updateState(){
-    state.setState((){
+    state?.setState((){
       state.color = ui.getColor(tile.color);
       state.setVariables();
     });

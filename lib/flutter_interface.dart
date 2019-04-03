@@ -17,7 +17,7 @@ final AssetBundle _bundle = _initBundle();
 
 class FlutterInterface extends Interface{
 
-  FlutterBoard board;
+  FlutterBoardState board;
 
   FlutterInterface();
 
