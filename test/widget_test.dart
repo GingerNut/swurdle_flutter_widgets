@@ -7,13 +7,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 
 import 'package:swurdle_flutter_widgets/main.dart';
+import 'package:swurdlelogic/swurdlelogic.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+
+
+    FlutterInterface ui = new FlutterInterface();
+    Game game = new Game(ui);
+    ui.game = game;
+    game.newGame(7);
+
+    await tester.pumpWidget(MyApp(ui));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

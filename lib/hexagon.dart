@@ -34,16 +34,25 @@ class HexState extends State<FlutterHexagon>{
   @override
   Widget build(BuildContext context) {
 
+    String letter = ui.position.letters[tile.k];
+
     return Positioned(
       left: homeX,
       top: homeY,
 
-
       child: Container(
-        color: Colors.brown,
+        color: Colors.amberAccent,
         child: SizedBox(
           height: hexSize,
           width: hexSize,
+          child: FittedBox(
+              child: Text(
+                  letter,
+                style: TextStyle(
+                  color: Colors.black
+                ),
+              ),
+          ),
         ),
       ),
     );

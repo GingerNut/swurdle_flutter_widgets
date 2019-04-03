@@ -1,7 +1,6 @@
 
 
 
-import 'package:flutter/material.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
 class FlutterInterface extends Interface{
