@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:swurdle_flutter_widgets/flutter_interface.dart';
+import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'board.dart';
 
 class GameScreen extends StatelessWidget {
@@ -64,7 +66,9 @@ class Body extends StatelessWidget{
 class TopBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    FlutterInterface ui= UI.of(context).ui;
+
     return SafeArea(
       child: Container(
 
@@ -77,7 +81,7 @@ class TopBar extends StatelessWidget{
             Button(
                 Icon(Icons.arrow_back),
                     (){
-                  print('back');
+
                 }
 
             ),
@@ -110,7 +114,9 @@ class TopBar extends StatelessWidget{
 class BottomBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    FlutterInterface ui= UI.of(context).ui;
+
     return Container(
 
       color: Colors.green,
@@ -122,7 +128,7 @@ class BottomBar extends StatelessWidget{
           Button(
               Icon(Icons.arrow_back),
                   (){
-                print('back');
+                    ui.buttonSwap();
               }
 
           ),
@@ -136,7 +142,7 @@ class BottomBar extends StatelessWidget{
           Button(
               Icon(Icons.help),
               (){
-                print('help');
+               ui.newGame(7);
               }
 
           )

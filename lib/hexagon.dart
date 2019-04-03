@@ -8,11 +8,25 @@ class FlutterHexagon extends StatefulWidget{
 
   final Tile tile;
   final FlutterInterface ui;
+  HexState state;
+
 
   FlutterHexagon(this.tile, this.ui);
 
   @override
-  HexState createState() => HexState(tile, ui);
+  HexState createState() {
+
+    state = HexState(tile, ui);
+
+    return state;
+  }
+
+  updateState(){
+    state.setState((){
+      state.color = ui.getColor(tile.color);
+    });
+
+  }
 
 }
 
@@ -20,9 +34,11 @@ class HexState extends State<FlutterHexagon>{
 
   final Tile tile;
   final FlutterInterface ui;
+  Color color;
 
   HexState(this.tile, this.ui){
     setVariables();
+    color = ui.getColor(tile.color);
   }
 
   double hexSize;
@@ -33,24 +49,49 @@ class HexState extends State<FlutterHexagon>{
   @override
   Widget build(BuildContext context) {
 
-    String letter = ui.position.letters[tile.k];
+    String letter = ui.letters[tile.k];
 
     return Positioned(
       left: homeX,
       top: homeY,
 
       child: Container(
-        color: Colors.amberAccent,
+        color: color,
         child: SizedBox(
           height: hexSize,
           width: hexSize,
-          child: FittedBox(
-              child: Text(
-                  letter,
-                style: TextStyle(
-                  color: Colors.black
+          child: GestureDetector(
+
+            onTap: (){
+              ui.select(tile);
+              },
+
+            onTapUp: (d){
+              setState(() {color = ui.getColor(tile.color);
+              });
+            },
+
+            onPanDown: (d){},
+
+            onPanUpdate: (d){
+
+              setState(() {
+                homeX = d.globalPosition.dx;
+                homeY = d.globalPosition.dy;
+              });
+
+
+
+            },
+
+            child: FittedBox(
+                child: Text(
+                    letter,
+                  style: TextStyle(
+                    color: Colors.black
+                  ),
                 ),
-              ),
+            ),
           ),
         ),
       ),
@@ -60,27 +101,16 @@ class HexState extends State<FlutterHexagon>{
 
 
   setVariables(){
-    const padding = 1.0;
-    const horizontal_packing = 0.75;
-    const root3over2 = 1.22474487131915;
 
+    hexSize = ui.smallDimension / ui.game.size * 0.75;
 
+    double hexagonSpacingVertical = hexSize * 1.2;
+    double hexagonSpacingHorizontal = hexSize * 1.2;
 
-    hexSize = min(ui.horizontalSize / ui.game.size * root3over2 /2.7, ui.verticalSize/ ui.game.size * root3over2 / 2.5);
+    homeX = tile.i * hexagonSpacingHorizontal + hexagonSpacingHorizontal/2 ;
+    homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical/2 ;
+    if(tile.i.isEven) homeY += hexagonSpacingVertical/2;
 
-    hexSize /= 1.8;
-
-    double hexagonSpacingVertical = hexSize * (2 + padding * 2) * root3over2;
-    double hexagonSpacingHorizontal = hexSize * (2 + padding * 2) * horizontal_packing;
-
-    double horizontalPadding = (ui.horizontalSize - hexagonSpacingHorizontal * ui.game.size)/2;
-    double verticalPadding = (ui.verticalSize - hexagonSpacingVertical * ui.game.size)/2 ;
-
-    homeX = tile.i * hexagonSpacingHorizontal + hexagonSpacingHorizontal ;
-    homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical ;
-    if(tile.i.isEven) homeY += verticalPadding/2;
-
-    defaultScale = 0.78;
   }
 
 

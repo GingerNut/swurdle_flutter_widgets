@@ -1,7 +1,10 @@
 
-
+import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:swurdle_flutter_widgets/board.dart';
+import 'package:swurdle_flutter_widgets/hexagon.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
+import 'package:flutter/material.dart';
 
 
 AssetBundle _initBundle() {
@@ -14,16 +17,11 @@ final AssetBundle _bundle = _initBundle();
 
 class FlutterInterface extends Interface{
 
-  double horizontalSize = 600;
-  double verticalSize = 800;
+  FlutterBoard board;
+
+  List<FlutterHexagon> hexagons = new List();
 
   FlutterInterface();
-
-  @override
-  loadGraphics() {
-    // TODO: implement loadGraphics
-    return null;
-  }
 
   Future<String> loadString(String fileName) async{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);
@@ -31,17 +29,52 @@ class FlutterInterface extends Interface{
 
   @override
   redraw() {
-    // TODO: implement redraw
+      board?.update();
+   }
+
+   Color getColor(int color){
+    switch(color){
+      case Board.COLOR_NONE:
+        return Colors.amberAccent;
+
+      case Board.COLOR_BLUE:
+        return Colors.blue;
+
+      case Board.COLOR_GOLD:
+        return Colors.amber;
+
+      case Board.COLOR_GREY:
+        return Colors.grey;
+
+      case Board.COLOR_PURPLE:
+        return Colors.purple;
+
+      case Board.COLOR_RED:
+        return Colors.red;
+
+      case Board.COLOR_SELECTED:
+        return Colors.brown;
+
+      case Board.COLOR_WORD_BAD:
+        return Colors.red;
+
+      case Board.COLOR_WORD_DISSOLVED:
+        return Colors.pinkAccent;
+
+      case Board.COLOR_WORD_GOOD:
+        return Colors.green;
+
+
+
+
+    }
+
+
     return null;
+   }
+
+
+
   }
 
 
-
-
-
-
-
-
-
-
-}

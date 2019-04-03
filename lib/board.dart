@@ -14,6 +14,8 @@ class FlutterBoard extends StatelessWidget{
 
     FlutterInterface ui = UI.of(context).ui;
 
+    ui.board = this;
+
     ui.tiles.forEach((t){
       hexagons.add(FlutterHexagon(t,ui));
     });
@@ -38,5 +40,12 @@ class FlutterBoard extends StatelessWidget{
     );
   }
 
+
+  update(){
+
+    hexagons.forEach((h){
+      h.updateState();
+    });
+  }
 
 }
