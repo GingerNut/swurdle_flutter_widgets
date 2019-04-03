@@ -24,6 +24,14 @@ class FlutterHexagon extends StatefulWidget{
   updateState(){
     state.setState((){
       state.color = ui.getColor(tile.color);
+      state.setVariables();
+    });
+
+  }
+
+  reset(){
+    state.setState((){
+      state.setVariables();
     });
 
   }
@@ -62,12 +70,11 @@ class HexState extends State<FlutterHexagon>{
           width: hexSize,
           child: GestureDetector(
 
-            onTap: (){
-              ui.select(tile);
-              },
-
             onTapUp: (d){
-              setState(() {color = ui.getColor(tile.color);
+              setState(() {
+                ui.select(tile);
+                ui.board.update();
+                setVariables();
               });
             },
 
@@ -82,6 +89,13 @@ class HexState extends State<FlutterHexagon>{
 
 
 
+            },
+
+            onPanEnd: (d){
+              setState(() {
+                color = ui.getColor(tile.color);
+                setVariables();
+              });
             },
 
             child: FittedBox(

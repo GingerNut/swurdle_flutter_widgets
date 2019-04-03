@@ -19,8 +19,6 @@ class FlutterInterface extends Interface{
 
   FlutterBoard board;
 
-  List<FlutterHexagon> hexagons = new List();
-
   FlutterInterface();
 
   Future<String> loadString(String fileName) async{
