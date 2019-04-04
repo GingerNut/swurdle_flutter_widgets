@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'package:swurdle_flutter_widgets/hexagon.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
-import 'package:swurdle_flutter_widgets/word.dart';
+import 'package:swurdle_flutter_widgets/words_layer.dart';
 
 class FlutterBoard extends StatefulWidget{
 
@@ -13,8 +13,7 @@ class FlutterBoard extends StatefulWidget{
 }
 
 class FlutterBoardState extends State<FlutterBoard> {
-  final List<FlutterHexagon> hexagons = new List();
-  final List<FlutterWord> words = new List();
+
   final List<Widget> pieces = new List();
   FlutterInterface ui;
 
@@ -25,15 +24,15 @@ class FlutterBoardState extends State<FlutterBoard> {
 
     ui.board = this;
 
+    ui.hexagons.clear();
+
     ui.tiles.forEach((t){
-      hexagons.add(FlutterHexagon(t,ui));
-      pieces.addAll(hexagons);
+      ui.hexagons.add(FlutterHexagon(t,ui));
+      pieces.addAll(ui.hexagons);
 
     });
 
-    ui.position.words.words.forEach((w){
-      pieces.add(FlutterWord(w));
-    });
+   pieces.add(WordsLayer());
 
 
     return Expanded(
@@ -57,33 +56,14 @@ class FlutterBoardState extends State<FlutterBoard> {
 
   update(){
 
-    hexagons.forEach((h){
+    ui.hexagons.forEach((h){
       h.updateState();
     });
     
 
-    ui.position.words.words.forEach((w){
 
-      bool alreadyIn = false;
-
-      words.forEach((fw){
-        if(fw.word == w) alreadyIn = true;
-      });
-
-      if(!alreadyIn) {
-        words.add(FlutterWord(w));
-        print('adding word');
-      }
-
-    });
-
-
-    setState(() {
-      pieces.clear();
-      pieces.addAll(hexagons);
-      pieces.addAll(words);
-    });
 
 
   }
 }
+

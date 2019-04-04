@@ -15,11 +15,16 @@ AssetBundle _initBundle() {
 
 final AssetBundle _bundle = _initBundle();
 
+
+
+
 class FlutterInterface extends Interface{
 
   FlutterBoardState board;
+  final List<FlutterHexagon> hexagons = new List();
 
-  FlutterInterface();
+  HexState hexState(tile) => hexagons[tile.k].state;
+
 
   Future<String> loadString(String fileName) async{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);

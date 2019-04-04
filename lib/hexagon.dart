@@ -10,7 +10,6 @@ class FlutterHexagon extends StatefulWidget{
   final FlutterInterface ui;
   HexState state;
 
-
   FlutterHexagon(this.tile, this.ui);
 
   @override
@@ -52,7 +51,6 @@ class HexState extends State<FlutterHexagon>{
   double hexSize;
   double homeX;
   double homeY;
-  double defaultScale;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +62,7 @@ class HexState extends State<FlutterHexagon>{
       top: homeY,
 
       child: Container(
-        color: color,
+
         child: SizedBox(
           height: hexSize,
           width: hexSize,
@@ -98,13 +96,17 @@ class HexState extends State<FlutterHexagon>{
               });
             },
 
-            child: FittedBox(
+            child: CustomPaint(
+              painter: HexagonPaint(this),
+
+              child: FittedBox(
                 child: Text(
-                    letter,
-                  style: TextStyle(
-                    color: Colors.black
+                      letter,
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
                   ),
-                ),
+              ),
             ),
           ),
         ),
@@ -125,6 +127,33 @@ class HexState extends State<FlutterHexagon>{
     homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical/2 ;
     if(tile.i.isEven) homeY += hexagonSpacingVertical/2;
 
+  }
+
+
+}
+
+class HexagonPaint extends CustomPainter {
+  
+  final HexState state;
+
+  HexagonPaint(this.state);
+  
+  @override
+  void paint(Canvas canvas, Size size) {
+
+    final paint = Paint();
+
+    paint.color = state.ui.getColor(state.tile.color);
+
+    // center of the canvas is (x,y) => (width/2, height/2)
+    var center = Offset(state.hexSize/2, state.hexSize/2);
+
+    canvas.drawCircle(center, state.hexSize/1.8, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 
 
