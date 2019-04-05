@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'package:swurdle_flutter_widgets/hexagon.dart';
@@ -24,6 +26,7 @@ class FlutterBoardState extends State<FlutterBoard> {
 
 
     ui.tiles.forEach((t){
+
       pieces.add(FlutterHexagon(t,ui, ui.model(t)));
 
     });

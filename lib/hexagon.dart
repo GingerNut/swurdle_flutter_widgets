@@ -117,6 +117,8 @@ class HexState extends State<FlutterHexagon>{
 
               });
 
+
+
             },
 
             onPanEnd: (d){
