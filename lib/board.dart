@@ -24,12 +24,22 @@ class FlutterBoardState extends State<FlutterBoard> {
 
     ui = UI.of(context).ui;
 
+    ui.hexUpates.clear();
+
 
     ui.tiles.forEach((t){
 
       pieces.add(FlutterHexagon(t,ui, ui.model(t)));
 
     });
+
+    ui.tiles.forEach((t){
+
+      ui.hexUpates.add(StreamController<GameState>());
+
+    });
+
+
 
    pieces.add(WordsLayer());
 
@@ -41,14 +51,18 @@ class FlutterBoardState extends State<FlutterBoard> {
         if(snapshot != null && snapshot.data != null){
           if(snapshot.data.valid == false){
 
-            pieces.clear();
+            ui.hexUpates.forEach((u) => u.add(GameState()..valid = false));
 
-
-            ui.tiles.forEach((t){
-              pieces.add(FlutterHexagon(t,ui, ui.model(t)));
-
-            });
-            pieces.add(WordsLayer());
+//            pieces.clear();
+//
+//
+//            ui.tiles.forEach((t){
+//
+//
+//              pieces.add(FlutterHexagon(t,ui, ui.model(t)));
+//
+//            });
+//            pieces.add(WordsLayer());
 
 
           }

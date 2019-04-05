@@ -62,12 +62,24 @@ class HexState extends State<FlutterHexagon>{
 
   final FlutterInterface ui;
   final HexModel model;
-  Color color;
 
-  HexState(this.model, this.ui){
+  HexState(this.model, this.ui);
 
-    color = ui.getColor(model.tile.color);
+  @override
+  void initState() {
+    super.initState();
+
+    ui.hexUpates[model.tile.k].stream.listen(
+            (d){
+          if(d?.valid == false) setState(() {
+
+          });
+        }
+    );
+
   }
+
+
 
   @override
   Widget build(BuildContext context) {

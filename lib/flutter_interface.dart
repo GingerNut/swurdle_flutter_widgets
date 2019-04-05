@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:swurdle_flutter_widgets/board.dart';
 import 'package:swurdle_flutter_widgets/hexagon.dart';
+import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class FlutterInterface extends Interface{
   final List<HexModel> hexagons = new List();
 
   HexModel model(Tile tile) => hexagons[tile.k];
+  List<StreamController<GameState>> hexUpates = new List();
 
 
   Future<String> loadString(String fileName) async{

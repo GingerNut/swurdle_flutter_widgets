@@ -12,6 +12,7 @@ class UI extends InheritedWidget{
   final FlutterInterface ui;
   StreamController<GameState>  events = StreamController<GameState>();
 
+
   UI({this.ui, Widget child}) : super(child: child);
 
   bool updateShouldNotify(InheritedWidget oldWidget) {
