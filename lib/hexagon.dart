@@ -110,7 +110,8 @@ class HexState extends State<FlutterHexagon>{
             },
 
             onPanDown: (d){
-              ui.holding1 = model.tile;
+
+             // ui.holding1 = model.tile;
               UI.of(context).events.add(GameState()..valid = false);
             },
 
@@ -123,13 +124,11 @@ class HexState extends State<FlutterHexagon>{
                 Tile t = ui.getTile(Offset(model.homeX, model.homeY));
 
                 if(t != null) {
-                  ui.holding2 = t;
+                  ui.holding1 = t;
                   UI.of(context).events.add(GameState()..valid = false);
                 }
 
               });
-
-
 
             },
 
@@ -137,7 +136,14 @@ class HexState extends State<FlutterHexagon>{
 
               model.setVariables();
 
-              ui.buttonSwap();
+              ui.holding2 = model.tile;
+
+              if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
+                ui.buttonSwap();
+              } else {
+
+              }
+
               UI.of(context).events.add(GameState()..valid = false);
 
             },

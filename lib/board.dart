@@ -53,18 +53,6 @@ class FlutterBoardState extends State<FlutterBoard> {
 
             ui.hexUpates.forEach((u) => u.add(GameState()..valid = false));
 
-//            pieces.clear();
-//
-//
-//            ui.tiles.forEach((t){
-//
-//
-//              pieces.add(FlutterHexagon(t,ui, ui.model(t)));
-//
-//            });
-//            pieces.add(WordsLayer());
-
-
           }
         }
 

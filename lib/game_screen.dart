@@ -143,7 +143,7 @@ class BottomBar extends StatelessWidget{
           Button(
               Icon(Icons.help),
               (){
-               ui.newGame(7);
+               ui.newGame(9);
                UI.of(context).events.add(GameState()..valid = false);
               }
 
