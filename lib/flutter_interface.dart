@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:swurdle_flutter_widgets/board.dart';
@@ -16,24 +17,43 @@ AssetBundle _initBundle() {
 final AssetBundle _bundle = _initBundle();
 
 
-
-
 class FlutterInterface extends Interface{
 
   FlutterBoardState board;
-  final List<FlutterHexagon> hexagons = new List();
+  final List<HexModel> hexagons = new List();
 
-  HexState hexState(tile) => hexagons[tile.k].state;
+  HexModel model(Tile tile) => hexagons[tile.k];
 
 
   Future<String> loadString(String fileName) async{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);
   }
 
-  @override
-  redraw() {
-      board?.update();
-   }
+
+  setUpNewGame(){
+
+    hexagons.clear();
+
+    tiles.forEach((t) {
+      hexagons.add(HexModel(this, t));
+    });
+
+
+  }
+
+  setUpNewPosition(){}
+
+  Tile getTile(Offset offset){
+
+    Tile tile;
+
+    hexagons.forEach((h){
+      if(h.contains(offset)) tile = h.tile;
+    });
+
+    return tile;
+  }
+
 
    Color getColor(int color){
     switch(color){
@@ -75,6 +95,11 @@ class FlutterInterface extends Interface{
 
     return null;
    }
+
+  @override
+  redraw() {
+
+  }
 
 
 

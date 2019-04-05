@@ -129,6 +129,7 @@ class BottomBar extends StatelessWidget{
               Icon(Icons.arrow_back),
                   (){
                     ui.buttonSwap();
+                    UI.of(context).events.add(GameState()..valid = false);
               }
 
           ),
@@ -143,6 +144,7 @@ class BottomBar extends StatelessWidget{
               Icon(Icons.help),
               (){
                ui.newGame(7);
+               UI.of(context).events.add(GameState()..valid = false);
               }
 
           )

@@ -22,48 +22,55 @@ class FlutterBoardState extends State<FlutterBoard> {
 
     ui = UI.of(context).ui;
 
-    ui.board = this;
-
-    ui.hexagons.clear();
 
     ui.tiles.forEach((t){
-      ui.hexagons.add(FlutterHexagon(t,ui));
-      pieces.addAll(ui.hexagons);
+      pieces.add(FlutterHexagon(t,ui, ui.model(t)));
 
     });
 
    pieces.add(WordsLayer());
 
 
-    return Expanded(
-      child: Container(
-        color: Colors.lightGreenAccent,
-        child: FittedBox(
-          child: SizedBox(
-            height: ui.verticalSize,
-            width: ui.horizontalSize,
+    return StreamBuilder<GameState>(
+      stream: UI.of(context).events.stream,
+      builder: (context, snapshot) {
 
-            child: Stack(
+        if(snapshot != null && snapshot.data != null){
+          if(snapshot.data.valid == false){
 
-              children: pieces,
+            pieces.clear();
 
+
+            ui.tiles.forEach((t){
+              pieces.add(FlutterHexagon(t,ui, ui.model(t)));
+
+            });
+            pieces.add(WordsLayer());
+
+
+          }
+        }
+
+        return Expanded(
+          child: Container(
+            color: Colors.lightGreenAccent,
+            child: FittedBox(
+              child: SizedBox(
+                height: ui.verticalSize,
+                width: ui.horizontalSize,
+
+                child: Stack(
+
+                  children: pieces,
+
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 
-  update(){
-
-    ui.hexagons.forEach((h){
-      h.updateState();
-    });
-    
-
-
-
-
-  }
 }
 

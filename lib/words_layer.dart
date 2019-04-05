@@ -30,21 +30,19 @@ class WordPainter extends CustomPainter {
 
     ui.position.words.words.forEach((w){
 
-
-      double size = ui.hexState(w.first).hexSize;
-
+      double size = ui.model(w.first).hexSize;
 
       final paint = Paint()
         ..strokeWidth = size/2
         ..color = ui.getColor(w.color);
 
-      var center = Offset(ui.hexState(w.first).homeX + size/2, ui.hexState(w.first).homeY + size/2);
+      var center = Offset(ui.model(w.first).homeX + size/2, ui.model(w.first).homeY + size/2);
 
       canvas.drawCircle(center, size/2, paint);
 
       for(int i = 0 ; i < w.length - 1; i ++){
-        HexState start = ui.hexState(w.tiles[i]);
-        HexState end = ui.hexState(w.tiles[i+1]);
+        HexModel start = ui.model(w.tiles[i]);
+        HexModel end = ui.model(w.tiles[i+1]);
 
         canvas.drawCircle(Offset(end.homeX + size/2, end.homeY + size/2), size/4, paint);
 
@@ -65,7 +63,7 @@ class WordPainter extends CustomPainter {
   }
 
   paintLetter(Canvas canvas, double size, Tile t){
-    var center = Offset(ui.hexState(t).homeX + size * .3, ui.hexState(t).homeY + size * .25);
+    var center = Offset(ui.model(t).homeX + size * .3, ui.model(t).homeY + size * .25);
 
     TextSpan span = TextSpan(
         style: new TextStyle(
