@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
-import 'package:swurdle_flutter_widgets/hexagon.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
@@ -15,6 +14,11 @@ class WordsLayer extends StatelessWidget{
 
     return CustomPaint(
         painter: WordPainter(ui),
+        child: Stack(
+
+          children: <Widget>[],
+
+        ),
     );
   }
 }
@@ -30,19 +34,19 @@ class WordPainter extends CustomPainter {
 
     ui.position.words.words.forEach((w){
 
-      double size = ui.model(w.first).hexSize;
+      double size = w.first.hexSize;
 
       final paint = Paint()
         ..strokeWidth = size/2
-        ..color = ui.getColor(w.color);
+        ..color = FlutterInterface.getColor(w.color);
 
-      var center = Offset(ui.model(w.first).homeX + size/2, ui.model(w.first).homeY + size/2);
+      var center = Offset(w.first.homeX + size/2, w.first.homeY + size/2);
 
       canvas.drawCircle(center, size/2, paint);
 
       for(int i = 0 ; i < w.length - 1; i ++){
-        HexModel start = ui.model(w.tiles[i]);
-        HexModel end = ui.model(w.tiles[i+1]);
+        Tile start = w.tiles[i];
+        Tile end = w.tiles[i+1];
 
         canvas.drawCircle(Offset(end.homeX + size/2, end.homeY + size/2), size/4, paint);
 
@@ -63,7 +67,7 @@ class WordPainter extends CustomPainter {
   }
 
   paintLetter(Canvas canvas, double size, Tile t){
-    var center = Offset(ui.model(t).homeX + size * .3, ui.model(t).homeY + size * .25);
+    var center = Offset(t.homeX + size * .3, t.homeY + size * .25);
 
     TextSpan span = TextSpan(
         style: new TextStyle(

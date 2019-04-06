@@ -13,8 +13,6 @@ class FlutterBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    pieces.clear();
-
     FlutterInterface ui = UI
         .of(context)
         .ui;
@@ -22,8 +20,6 @@ class FlutterBoard extends StatelessWidget {
     ui.tiles.forEach((t) {
       pieces.add(FlutterHexagon(t));
     });
-
-    ui.events.add(GameMessage(Event.reDraw));
 
     pieces.add(WordsLayer());
 

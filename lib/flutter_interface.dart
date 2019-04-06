@@ -20,7 +20,7 @@ class FlutterInterface extends Interface{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);
   }
 
-   Color getColor(int color){
+   static Color getColor(int color){
     switch(color){
       case Board.COLOR_NONE:
         return Colors.amberAccent;
