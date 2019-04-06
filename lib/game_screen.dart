@@ -87,38 +87,25 @@ class TopBar extends StatelessWidget{
     FlutterInterface ui= UI.of(context).ui;
 
     return SafeArea(
-      child: Container(
 
-        color: Colors.green,
+      child: StreamBuilder<GameMessage>(
+        stream: ui.events.stream,
+        builder: (context, snapshot) {
 
-        child: Row(
+          return Container(
 
-          children: <Widget>[
+            height: 50,
 
-            Button(
-                Icon(Icons.arrow_back),
-                    (){
+            color: FlutterInterface.getColor(ui.game.position.player.color),
 
-                }
+            child: Row(
 
-            ),
-            Button(
-                Icon(Icons.arrow_forward),
-                    (){
-                  print('forward');
-                }
+
+
 
             ),
-            Button(
-                Icon(Icons.help),
-                    (){
-                  print('help');
-                }
-
-            )
-
-          ],
-        ),
+          );
+        }
       ),
     );
   }

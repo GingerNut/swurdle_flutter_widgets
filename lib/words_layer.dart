@@ -14,11 +14,8 @@ class WordsLayer extends StatelessWidget{
 
     return CustomPaint(
         painter: WordPainter(ui),
-        child: Stack(
 
-          children: <Widget>[],
 
-        ),
     );
   }
 }
@@ -55,7 +52,7 @@ class WordPainter extends CustomPainter {
 
       w.tiles.forEach((t){
 
-        paintLetter(canvas, size, t);
+       paintLetter(canvas, size, t);
 
       });
 

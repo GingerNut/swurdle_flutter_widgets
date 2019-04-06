@@ -24,71 +24,67 @@ class FlutterHexagon extends StatelessWidget{
             top: tile.homeY,
 
             child: Container(
+              height: tile.hexSize,
+              width: tile.hexSize,
 
-              child: GestureDetector(
+              child: StreamBuilder<GameMessage>(
+                  stream: ui.events.stream,
+                  builder: (context, snapshot) {
+                    return CustomPaint(
+                      painter: HexagonPaint(tile),
 
-                onTapUp: (d){
+                      child: GestureDetector(
 
-                  ui.select(tile);
+                        onTapUp: (d){
 
-                },
+                          ui.select(tile);
 
-                onPanDown: (d){
+                        },
 
-                },
+                        onPanDown: (d){
 
-                onPanUpdate: (d){
+                        },
 
-                  tile.homeX = d.globalPosition.dx;
-                  tile.homeY = d.globalPosition.dy;
+                        onPanUpdate: (d){
 
-                  Tile t = ui.getTile(tile.homeX, tile.homeY);
+                          tile.homeX = d.globalPosition.dx;
+                          tile.homeY = d.globalPosition.dy;
 
-                  if(t != null) {
-                    ui.holding1 = t;
+                          Tile t = ui.getTile(tile.homeX, tile.homeY);
 
-                  }
+                          if(t != null) {
+                            ui.holding1 = t;
+                            ui.events.add(GameMessage(Event.reDraw));
 
+                          }
 
+                        },
 
-                },
+                        onPanEnd: (d){
 
-                onPanEnd: (d){
+                          tile.setVariables();
 
-                  tile.setVariables();
+                          ui.holding2 = tile;
 
-                  ui.holding2 = tile;
+                          if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
+                            ui.buttonSwap();
+                          } else {
 
-                  if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
-                    ui.buttonSwap();
-                  } else {
+                          }
 
-                  }
+                        },
 
-                },
-
-                child: SizedBox(
-                  height: tile.hexSize,
-                  width: tile.hexSize,
-
-                  child: StreamBuilder<GameMessage>(
-                      stream: ui.events.stream,
-                      builder: (context, snapshot) {
-                        return CustomPaint(
-                          painter: HexagonPaint(tile),
-
-                          child: FittedBox(
-                            child: Text(
-                              ui.position.wordOwnerBoard != null && ui.position.wordOwnerBoard[tile.k] != null ?  '' : ui.letters[tile.k],
-                              style: TextStyle(
-                                  color: Colors.black
-                              ),
+                        child: FittedBox(
+                          child: Text(
+                            ui.position.wordOwnerBoard != null && ui.position.wordOwnerBoard[tile.k] != null ?  '' : ui.letters[tile.k],
+                            style: TextStyle(
+                                color: Colors.black
                             ),
                           ),
-                        );
-                      }
-                  ),
-                ),
+                        ),
+                      ),
+                    );
+                  }
               ),
             ),
           );
