@@ -25,53 +25,51 @@ class FlutterHexagon extends StatelessWidget{
 
             child: Container(
 
-              child: SizedBox(
-                height: tile.hexSize,
-                width: tile.hexSize,
+              child: GestureDetector(
 
-                child: GestureDetector(
+                onTapUp: (d){
 
-                  onTap: (){print('tap');},
+                  ui.select(tile);
 
-                  onTapUp: (d){
+                },
 
-                      ui.select(tile);
+                onPanDown: (d){
 
-                  },
+                },
 
-                  onPanDown: (d){
+                onPanUpdate: (d){
 
-                  },
+                  tile.homeX = d.globalPosition.dx;
+                  tile.homeY = d.globalPosition.dy;
 
-                  onPanUpdate: (d){
+                  Tile t = ui.getTile(tile.homeX, tile.homeY);
 
-                    tile.homeX = d.globalPosition.dx;
-                    tile.homeY = d.globalPosition.dy;
+                  if(t != null) {
+                    ui.holding1 = t;
 
-                      Tile t = ui.getTile(tile.homeX, tile.homeY);
-
-                      if(t != null) {
-                        ui.holding1 = t;
-
-                      }
+                  }
 
 
 
-                  },
+                },
 
-                  onPanEnd: (d){
+                onPanEnd: (d){
 
-                    tile.setVariables();
+                  tile.setVariables();
 
-                    ui.holding2 = tile;
+                  ui.holding2 = tile;
 
-                    if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
-                      ui.buttonSwap();
-                    } else {
+                  if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
+                    ui.buttonSwap();
+                  } else {
 
-                    }
+                  }
 
-                  },
+                },
+
+                child: SizedBox(
+                  height: tile.hexSize,
+                  width: tile.hexSize,
 
                   child: StreamBuilder<GameMessage>(
                       stream: ui.events.stream,
@@ -114,7 +112,6 @@ class HexagonPaint extends CustomPainter {
 
     paint.color = FlutterInterface.getColor(tile.color);
 
-    // center of the canvas is (x,y) => (width/2, height/2)
     var center = Offset(tile.hexSize/2, tile.hexSize/2);
 
     canvas.drawCircle(center, tile.hexSize/1.8, paint);
