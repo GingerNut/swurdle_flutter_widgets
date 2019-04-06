@@ -7,162 +7,105 @@ import 'package:swurdlelogic/swurdlelogic.dart';
 class FlutterHexagon extends StatefulWidget{
 
   final Tile tile;
-  final FlutterInterface ui;
-  final HexModel model;
 
-  FlutterHexagon(this.tile, this.ui, this.model);
+  FlutterHexagon(this.tile);
 
   @override
-  HexState createState() => HexState(model, ui);
+  HexState createState() => HexState(tile);
 
-
-}
-
-
-class HexModel{
-
-  final FlutterInterface ui;
-  final Tile tile;
-
-  double hexSize;
-  double homeX;
-  double homeY;
-
-  double minX;
-  double maxX;
-  double minY;
-  double maxY;
-
-  HexModel(this.ui, this.tile){
-    setVariables();
-  }
-
-  setVariables(){
-
-    hexSize = ui.smallDimension / ui.game.size * 0.75;
-
-    double hexagonSpacingVertical = hexSize * 1.2;
-    double hexagonSpacingHorizontal = hexSize * 1.2;
-
-    homeX = tile.i * hexagonSpacingHorizontal + hexagonSpacingHorizontal/2 ;
-    homeY = tile.j * hexagonSpacingVertical + hexagonSpacingVertical/2 ;
-    if(tile.i.isEven) homeY += hexagonSpacingVertical/2;
-
-    minX = homeX - hexSize/2;
-    maxX = homeX + hexSize/2;
-    minY = homeY - hexSize/2;
-    maxY = homeY + hexSize/2;
-
-  }
-
-  bool contains(Offset offset)=> (offset.dx > minX && offset.dx < maxX &&  offset.dy > minY && offset.dy < maxY);
 }
 
 class HexState extends State<FlutterHexagon>{
 
-  final FlutterInterface ui;
-  final HexModel model;
+  final Tile tile;
 
-  HexState(this.model, this.ui);
-
-  @override
-  void initState() {
-    super.initState();
-
-    ui.hexUpates[model.tile.k].stream.listen(
-            (d){
-          if(d?.valid == false) setState(() {
-
-          });
-        }
-    );
-
-  }
-
-
+  HexState(this.tile);
 
   @override
   Widget build(BuildContext context) {
 
-    String letter = ui.letters[model.tile.k];
+    FlutterInterface ui = UI.of(context).ui;
+    HexModel model = ui.model(tile);
 
-    if(ui.position.wordOwnerBoard != null){
-      if(ui.position.wordOwnerBoard[model.tile.k] != null) letter = '';
-    }
+    return StreamBuilder<GameMessage>(
+      stream: ui.events.stream,
+      builder: (context, snapshot) {
 
-    return Positioned(
-      left: model.homeX,
-      top: model.homeY,
+        return Positioned(
+          left: model.homeX,
+          top: model.homeY,
 
-      child: Container(
+          child: Container(
 
-        child: SizedBox(
-          height: model.hexSize,
-          width: model.hexSize,
-          child: GestureDetector(
+            child: SizedBox(
+              height: model.hexSize,
+              width: model.hexSize,
+              child: GestureDetector(
 
-            onTapUp: (d){
-              setState(() {
-                ui.select(model.tile);
+                onTapUp: (d){
+                  setState(() {
+                    ui.select(model.tile);
 
-                UI.of(context).events.add(GameState()..valid = false);
-              });
-            },
+                  });
+                },
 
-            onPanDown: (d){
+                onPanDown: (d){
 
-             // ui.holding1 = model.tile;
-              UI.of(context).events.add(GameState()..valid = false);
-            },
+                },
 
-            onPanUpdate: (d){
+                onPanUpdate: (d){
 
-              setState(() {
-                model.homeX = d.globalPosition.dx;
-                model.homeY = d.globalPosition.dy;
+                  setState(() {
+                    model.homeX = d.globalPosition.dx;
+                    model.homeY = d.globalPosition.dy;
 
-                Tile t = ui.getTile(Offset(model.homeX, model.homeY));
+                    Tile t = ui.getTile(model.homeX, model.homeY);
 
-                if(t != null) {
-                  ui.holding1 = t;
-                  UI.of(context).events.add(GameState()..valid = false);
-                }
+                    if(t != null) {
+                      ui.holding1 = t;
 
-              });
+                    }
 
-            },
+                  });
 
-            onPanEnd: (d){
+                },
 
-              model.setVariables();
+                onPanEnd: (d){
 
-              ui.holding2 = model.tile;
+                  model.setVariables();
 
-              if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
-                ui.buttonSwap();
-              } else {
+                  ui.holding2 = model.tile;
 
-              }
+                  if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
+                    ui.buttonSwap();
+                  } else {
 
-              UI.of(context).events.add(GameState()..valid = false);
+                  }
 
-            },
+                },
 
-            child: CustomPaint(
-              painter: HexagonPaint(model),
+                child: StreamBuilder<GameMessage>(
+                  stream: ui.events.stream,
+                  builder: (context, snapshot) {
+                    return CustomPaint(
+                      painter: HexagonPaint(model),
 
-              child: FittedBox(
-                child: Text(
-                      letter,
-                    style: TextStyle(
-                      color: Colors.black
-                    ),
-                  ),
+                      child: FittedBox(
+                        child: Text(
+                            ui.position.wordOwnerBoard != null && ui.position.wordOwnerBoard[model.tile.k] != null ?  '' : ui.letters[model.tile.k],
+                            style: TextStyle(
+                              color: Colors.black
+                            ),
+                          ),
+                      ),
+                    );
+                  }
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 

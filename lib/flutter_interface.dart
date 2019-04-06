@@ -2,9 +2,6 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/services.dart';
-import 'package:swurdle_flutter_widgets/board.dart';
-import 'package:swurdle_flutter_widgets/hexagon.dart';
-import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 import 'package:flutter/material.dart';
 
@@ -17,45 +14,11 @@ AssetBundle _initBundle() {
 
 final AssetBundle _bundle = _initBundle();
 
-
 class FlutterInterface extends Interface{
-
-  FlutterBoardState board;
-  final List<HexModel> hexagons = new List();
-
-  HexModel model(Tile tile) => hexagons[tile.k];
-  List<StreamController<GameState>> hexUpates = new List();
-
 
   Future<String> loadString(String fileName) async{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);
   }
-
-
-  setUpNewGame(){
-
-    hexagons.clear();
-
-    tiles.forEach((t) {
-      hexagons.add(HexModel(this, t));
-    });
-
-
-  }
-
-  setUpNewPosition(){}
-
-  Tile getTile(Offset offset){
-
-    Tile tile;
-
-    hexagons.forEach((h){
-      if(h.contains(offset)) tile = h.tile;
-    });
-
-    return tile;
-  }
-
 
    Color getColor(int color){
     switch(color){
@@ -89,19 +52,11 @@ class FlutterInterface extends Interface{
       case Board.COLOR_WORD_GOOD:
         return Colors.green;
 
-
-
-
     }
 
 
     return null;
    }
-
-  @override
-  redraw() {
-
-  }
 
 
 

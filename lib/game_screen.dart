@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
+import 'package:swurdlelogic/swurdlelogic.dart';
 import 'board.dart';
 
 class GameScreen extends StatelessWidget {
@@ -48,16 +49,32 @@ class Body extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      // This makes each child fill the full width of the screen
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        TopBar(),
-        FlutterBoard(),
-        BottomBar(),
-      ],
+
+    FlutterBoard board = FlutterBoard();
+    TopBar topBar = TopBar();
+    BottomBar bottomBar = BottomBar();
+
+    return StreamBuilder<GameMessage>(
+      stream: UI.of(context).ui.events.stream,
+      builder: (context, snapshot) {
+
+       if(snapshot == null || snapshot != null && snapshot.data != null && snapshot.data.event == Event.newGame) board = FlutterBoard();
+
+         return Column(
+
+           crossAxisAlignment: CrossAxisAlignment.stretch,
+           mainAxisSize: MainAxisSize.min,
+           children: <Widget>[
+             topBar,
+             board,
+             bottomBar,
+           ],
+         );
+
+
+
+
+      }
     );
   }
 
@@ -129,7 +146,7 @@ class BottomBar extends StatelessWidget{
               Icon(Icons.arrow_back),
                   (){
                     ui.buttonSwap();
-                    UI.of(context).events.add(GameState()..valid = false);
+                    ui.events.add(GameMessage(Event.reDraw));
               }
 
           ),
@@ -143,8 +160,9 @@ class BottomBar extends StatelessWidget{
           Button(
               Icon(Icons.help),
               (){
-               ui.newGame(9);
-               UI.of(context).events.add(GameState()..valid = false);
+               ui.newGame(Game.randomSize());
+
+               ui.events.add(GameMessage(Event.newGame));
               }
 
           )
