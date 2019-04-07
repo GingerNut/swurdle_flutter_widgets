@@ -19,10 +19,14 @@ class ShadowLayer extends StatelessWidget{
       pieces.add(Shadow(t));
     });
 
-    return Stack(
+    return Opacity(
+      opacity: 0.8,
 
-      children: pieces,
+      child: Stack(
 
+        children: pieces,
+
+      ),
     );
   }
 
@@ -60,8 +64,10 @@ class ShadowPainter extends CustomPainter{
   void paint(Canvas canvas, Size size) {
 
     double s = tile.hexSize;
+    double blurSigma = 3.0;
 
     final paint = Paint()
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurSigma)
       ..color = Colors.black;
 
     var center = Offset(tile.homeX + s/1.8, tile.homeY + s/1.8);

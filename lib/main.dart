@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'package:swurdle_flutter_widgets/game_screen.dart';
+import 'package:swurdle_flutter_widgets/start_screen.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
@@ -34,19 +35,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    SystemChrome.restoreSystemUIOverlays();
+
+    GameScreen gameScreen = GameScreen();
+    StartScreen startScreen = StartScreen();
+    Widget screen = startScreen;
 
     return MaterialApp(
-      title: 'Row & Column Example',
+      title: 'Swurdle',
       theme: ThemeData(
         primaryColor: Color(0xFF43a047),
         accentColor: Color(0xFFffcc00),
         primaryColorBrightness: Brightness.dark,
       ),
-      home: UI(
-        ui: ui,
-          child: GameScreen()
+      home: Material(
+        child: UI(
+          ui: ui,
+
+            child: StreamBuilder<GameMessage>(
+              stream: ui.changeScreen.stream,
+              builder: (context, snapshot) {
+
+                if(snapshot?.data?.event == Event.goToGameScreen) screen = gameScreen;
+                else if(snapshot?.data?.event == Event.goToStartScreen) screen = startScreen;
+
+                return screen;
+              }
+            )
+        ),
       ),
     );
+  }
+
+  dispose(){
+    SystemChrome.restoreSystemUIOverlays();
   }
 }
 

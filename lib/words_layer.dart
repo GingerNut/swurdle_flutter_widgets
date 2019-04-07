@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
@@ -13,7 +12,7 @@ class WordsLayer extends StatelessWidget{
     FlutterInterface ui = UI.of(context).ui;
 
     return CustomPaint(
-        painter: WordPainter(ui),
+      painter: WordPainter(ui),
 
 
     );
@@ -52,7 +51,7 @@ class WordPainter extends CustomPainter {
 
       w.tiles.forEach((t){
 
-       paintLetter(canvas, size, t);
+        paintLetter(canvas, size, t);
 
       });
 
