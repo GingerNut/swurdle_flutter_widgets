@@ -33,56 +33,7 @@ class FlutterHexagon extends StatelessWidget{
                     return CustomPaint(
                       painter: HexagonPaint(tile),
 
-                      child: GestureDetector(
 
-                        onTapUp: (d){
-
-                          ui.select(tile);
-
-                        },
-
-                        onPanDown: (d){
-
-                        },
-
-                        onPanUpdate: (d){
-
-                          tile.homeX = d.globalPosition.dx;
-                          tile.homeY = d.globalPosition.dy;
-
-                          Tile t = ui.getTile(tile.homeX, tile.homeY);
-
-                          if(t != null) {
-                            ui.holding1 = t;
-                            ui.events.add(GameMessage(Event.reDraw));
-
-                          }
-
-                        },
-
-                        onPanEnd: (d){
-
-                          tile.setVariables();
-
-                          ui.holding2 = tile;
-
-                          if(ui.holding1 != null && ui.holding2 != null && ui.holding1.k != ui.holding2.k){
-                            ui.buttonSwap();
-                          } else {
-
-                          }
-
-                        },
-
-                        child: FittedBox(
-                          child: Text(
-                            ui.position.wordOwnerBoard != null && ui.position.wordOwnerBoard[tile.k] != null ?  '' : ui.letters[tile.k],
-                            style: TextStyle(
-                                color: Colors.black
-                            ),
-                          ),
-                        ),
-                      ),
                     );
                   }
               ),

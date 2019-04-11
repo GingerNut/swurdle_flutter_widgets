@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
+import 'package:swurdle_flutter_widgets/letters_later.dart';
 import 'package:swurdle_flutter_widgets/shadow_layer.dart';
 import 'package:swurdle_flutter_widgets/tile_layer.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
@@ -30,6 +31,7 @@ class FlutterBoard extends StatelessWidget {
                 ShadowLayer(),
                 TileLayer(),
                 WordsLayer(),
+                LettersLayer(),
               ],
 
             ),

@@ -93,8 +93,7 @@ class BottomBar extends StatelessWidget{
           Button(
               Icon(Icons.arrow_back),
                   (){
-                    ui.buttonSwap();
-                    ui.events.add(GameMessage(Event.reDraw));
+                    ui.doMove();
               }
 
           ),

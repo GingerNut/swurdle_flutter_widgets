@@ -77,7 +77,7 @@ class StartBottomBar extends StatelessWidget{
           Button(
               Icon(Icons.arrow_back),
                   (){
-                ui.buttonSwap();
+                ui.doMove();
                 ui.events.add(GameMessage(Event.reDraw));
               }
 
