@@ -43,11 +43,8 @@ class LettersLayer extends StatelessWidget {
       top: tile.homeY,
 
       child: GestureDetector(
-        onTapUp: (d){
+        onTapUp: (d) => ui.select(tile),
 
-          ui.select(tile);
-
-        },
         child: Container(
           height: tile.hexSize,
           width: tile.hexSize,
