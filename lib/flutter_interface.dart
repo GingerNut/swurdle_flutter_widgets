@@ -53,10 +53,10 @@ class FlutterInterface extends Interface{
         return Colors.green;
 
       case Board.COLOR_LETTER_DARK:
-        return Colors.brown;
+        return Colors.black;
 
       case Board.COLOR_LETTER_LIGHT:
-        return Colors.amberAccent;
+        return Colors.white;
 
     }
 

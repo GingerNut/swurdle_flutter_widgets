@@ -33,20 +33,22 @@ class WordPainter extends CustomPainter {
     ui.position.words.words.forEach((w){
 
       double size = w.first.hexSize;
+      final double wordSize = size * 0.6;
+      final double firstLetterSize = size * 0.8;
 
       final paint = Paint()
-        ..strokeWidth = size/2
+        ..strokeWidth = wordSize
         ..color = FlutterInterface.getColor(w.color);
 
       var center = Offset(w.first.homeX + size/2, w.first.homeY + size/2);
 
-      canvas.drawCircle(center, size/2, paint);
+      canvas.drawCircle(center, firstLetterSize/2, paint);
 
       for(int i = 0 ; i < w.length - 1; i ++){
         Tile start = w.tiles[i];
         Tile end = w.tiles[i+1];
 
-        canvas.drawCircle(Offset(end.homeX + size/2, end.homeY + size/2), size/4, paint);
+        canvas.drawCircle(Offset(end.homeX + size/2, end.homeY + size/2), wordSize/2, paint);
 
         canvas.drawLine(Offset(start.homeX + size/2, start.homeY + size/2), Offset(end.homeX + size/2, end.homeY + size/2), paint);
       }

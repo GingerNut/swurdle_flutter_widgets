@@ -49,23 +49,22 @@ class LettersLayer extends StatelessWidget {
           height: tile.hexSize,
           width: tile.hexSize,
 
-          child: FittedBox(
-
           child: StreamBuilder<GameMessage>(
             stream: ui.events.stream,
             builder: (context, snapshot) {
 
-              return Text(
+              return Center(
+                child: Text(
 
-               tile.markings.letter,
+                  tile.markings.letter,
 
-              style: TextStyle(
-                fontSize: tile.markings.small ? tile.hexSize / 2 : tile.hexSize,
-                color: FlutterInterface.getColor(tile.markings.color),
-              ),
+                style: TextStyle(
+                  fontSize: tile.markings.fontSize,
+                  color: FlutterInterface.getColor(tile.markings.color),
+                ),
+                ),
               );
             }
-          ),
           ),
         ),
       ),
