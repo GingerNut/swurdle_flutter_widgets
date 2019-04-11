@@ -56,11 +56,11 @@ class LettersLayer extends StatelessWidget {
               return Center(
                 child: Text(
 
-                  tile.markings.letter,
+                  tile.letter,
 
                 style: TextStyle(
-                  fontSize: tile.markings.fontSize,
-                  color: FlutterInterface.getColor(tile.markings.color),
+                  fontSize: tile.fontSize,
+                  color: FlutterInterface.getColor(tile.letterColor),
                 ),
                 ),
               );

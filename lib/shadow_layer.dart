@@ -72,7 +72,7 @@ class ShadowPainter extends CustomPainter{
 
     var center = Offset(tile.homeX + s/1.8, tile.homeY + s/1.8);
 
-    canvas.drawCircle(center, s/1.8, paint);
+    if(tile.letter != ' ') canvas.drawCircle(center, s/1.8, paint);
 
   }
 

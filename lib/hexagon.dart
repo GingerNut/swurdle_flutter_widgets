@@ -57,11 +57,11 @@ class HexagonPaint extends CustomPainter {
 
     final paint = Paint();
 
-    paint.color = FlutterInterface.getColor(tile.color);
+   paint.color = FlutterInterface.getColor(tile.color);
 
     var center = Offset(tile.hexSize/2, tile.hexSize/2);
 
-    canvas.drawCircle(center, tile.hexSize/1.8, paint);
+    if(tile.letter != ' ') canvas.drawCircle(center, tile.hexSize/1.8, paint);
   }
 
   @override
