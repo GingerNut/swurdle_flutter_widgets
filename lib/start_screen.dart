@@ -37,6 +37,8 @@ class StartTopBar extends StatelessWidget{
     FlutterInterface ui= UI.of(context).ui;
 
     return Container(
+      color: Theme.of(context).primaryColor,
+
       height: 50,
 
     );
@@ -51,7 +53,7 @@ class MiddleBar extends StatelessWidget{
     // TODO: implement build
     return Expanded(
       child: Container(
-        color: Colors.brown,
+        color: Theme.of(context).primaryColor,
       ),
     );
   }
@@ -68,7 +70,7 @@ class StartBottomBar extends StatelessWidget{
 
     return Container(
 
-      color: Colors.green,
+      color: Theme.of(context).primaryColor,
 
       child: Row(
 

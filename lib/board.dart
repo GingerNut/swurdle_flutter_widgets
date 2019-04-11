@@ -19,7 +19,7 @@ class FlutterBoard extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        color: Colors.lightGreenAccent,
+        color: Theme.of(context).primaryColor,
         child: FittedBox(
           child: SizedBox(
             height: ui.verticalSize,

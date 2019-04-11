@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Swurdle',
       theme: ThemeData(
-        primaryColor: Color(0xFF43a047),
-        accentColor: Color(0xFFffcc00),
+        primaryColor: Colors.lightGreen,
+        accentColor: Colors.green,
         primaryColorBrightness: Brightness.dark,
       ),
       home: Material(
