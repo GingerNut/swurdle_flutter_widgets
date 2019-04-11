@@ -11,10 +11,12 @@ class WordsLayer extends StatelessWidget{
 
     FlutterInterface ui = UI.of(context).ui;
 
-    return CustomPaint(
-      painter: WordPainter(ui),
+    return IgnorePointer(
+      child: CustomPaint(
+        painter: WordPainter(ui),
 
 
+      ),
     );
   }
 }
@@ -49,38 +51,8 @@ class WordPainter extends CustomPainter {
         canvas.drawLine(Offset(start.homeX + size/2, start.homeY + size/2), Offset(end.homeX + size/2, end.homeY + size/2), paint);
       }
 
-      w.tiles.forEach((t){
-
-        paintLetter(canvas, size, t);
-
-      });
-
-
 
     });
-
-
-  }
-
-  paintLetter(Canvas canvas, double size, Tile t){
-    var center = Offset(t.homeX + size * .3, t.homeY + size * .25);
-
-    TextSpan span = TextSpan(
-        style: new TextStyle(
-            fontSize: size/2,
-            color: Colors.white
-
-        ),
-
-        text: ui.letters[t.k]);
-
-    TextPainter tp = TextPainter()
-      .. text = span
-      ..textDirection = TextDirection.ltr
-      ..textAlign = TextAlign.center;
-
-    tp.layout();
-    tp.paint(canvas,center);
 
 
   }

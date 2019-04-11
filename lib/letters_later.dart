@@ -50,15 +50,18 @@ class LettersLayer extends StatelessWidget {
           width: tile.hexSize,
 
           child: FittedBox(
+
           child: StreamBuilder<GameMessage>(
             stream: ui.events.stream,
             builder: (context, snapshot) {
 
               return Text(
 
-              ui.position.wordOwnerBoard != null && ui.position.wordOwnerBoard[tile.k] != null ?  '' : ui.letters[tile.k],
+               tile.markings.letter,
+
               style: TextStyle(
-              color: Colors.black
+                fontSize: tile.markings.small ? tile.hexSize / 2 : tile.hexSize,
+                color: FlutterInterface.getColor(tile.markings.color),
               ),
               );
             }

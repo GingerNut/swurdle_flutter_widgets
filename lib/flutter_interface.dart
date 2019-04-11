@@ -52,6 +52,12 @@ class FlutterInterface extends Interface{
       case Board.COLOR_WORD_GOOD:
         return Colors.green;
 
+      case Board.COLOR_LETTER_DARK:
+        return Colors.brown;
+
+      case Board.COLOR_LETTER_LIGHT:
+        return Colors.amberAccent;
+
     }
 
 
