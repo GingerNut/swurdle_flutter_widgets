@@ -51,16 +51,17 @@ class TopBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    FlutterInterface ui= UI.of(context).ui;
-
-   List<Scorecard> scores = new List();
-   ui.game.players.forEach((p) => scores.add(Scorecard(p)));
+   FlutterInterface ui = UI.of(context).ui;
 
     return SafeArea(
 
       child: StreamBuilder<GameMessage>(
+
         stream: ui.events.stream,
         builder: (context, snapshot) {
+
+          List<Scorecard> scores = new List();
+          ui.game.players.forEach((p) => scores.add(Scorecard(p)));
 
           return Container(
 
@@ -157,14 +158,14 @@ class StatusBar extends StatelessWidget {
         .of(context)
         .ui;
 
-    List<StatusCard> statusCards = new List();
-
-
-    ui.game.players.forEach((p) => statusCards.add(StatusCard(p)));
 
     return StreamBuilder<GameMessage>(
         stream: ui.events.stream,
         builder: (context, snapshot) {
+
+          List<StatusCard> statusCards = new List();
+          ui.game.players.forEach((p) => statusCards.add(StatusCard(p)));
+
           return Container(
 
             color: Theme
@@ -395,6 +396,17 @@ class BottomBar extends StatelessWidget{
               }
 
           ),
+
+          Button(
+              Icon(Icons.alarm),
+                  (){
+                ui.move = PassMove(ui.player);
+                ui.doMove();
+
+              }
+
+          ),
+
           Button(
               Icon(Icons.help),
               (){
