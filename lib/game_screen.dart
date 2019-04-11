@@ -14,6 +14,7 @@ class GameScreen extends StatelessWidget {
 
     FlutterBoard board = FlutterBoard();
     TopBar topBar = TopBar();
+    StatusBar statusBar = StatusBar();
     BottomBar bottomBar = BottomBar();
     SpringBar springBar = SpringBar();
 
@@ -29,6 +30,7 @@ class GameScreen extends StatelessWidget {
          mainAxisSize: MainAxisSize.min,
          children: <Widget>[
            topBar,
+           statusBar,
            board,
            springBar,
            bottomBar,
@@ -148,6 +150,92 @@ class Scorecard extends StatelessWidget{
 
 }
 
+class StatusBar extends StatelessWidget {
+
+  Widget build(BuildContext context) {
+    FlutterInterface ui = UI
+        .of(context)
+        .ui;
+
+    List<StatusCard> statusCards = new List();
+
+
+    ui.game.players.forEach((p) => statusCards.add(StatusCard(p)));
+
+    return StreamBuilder<GameMessage>(
+        stream: ui.events.stream,
+        builder: (context, snapshot) {
+          return Container(
+
+            color: Theme
+                .of(context)
+                .primaryColor,
+
+            height: 50,
+
+            child: Row(
+
+              children: statusCards,
+
+            ),
+          );
+        }
+    );
+  }
+}
+
+class StatusCard extends StatelessWidget{
+
+  final Player player;
+
+  const StatusCard(this.player);
+
+  Widget build(BuildContext context) {
+
+    FlutterInterface ui = UI.of(context).ui;
+
+    return StreamBuilder<Object>(
+      stream: ui.events.stream,
+      builder: (context, snapshot) {
+
+        List<Widget> springs = new List();
+
+        springs.add(Expanded(
+          child: Container(),
+        ));
+
+        player.springs(ui.position).forEach((s) {
+
+          if(s.tile == null) springs.add(
+              SizedBox(
+                height: 30,
+                width: 30,
+
+                child: CustomPaint(
+                  painter: SpringPaint(player, UI.of(context).ui, 10),
+                ),
+              )
+          );
+
+        });
+
+        springs.add(Expanded(
+          child: Container(),
+        ));
+
+        return Expanded(
+          child: Row(
+
+
+            children: springs
+          ),
+        );
+      }
+    );
+  }
+
+}
+
 class SpringBar extends StatelessWidget{
 
   Widget build(BuildContext context) {
@@ -161,7 +249,7 @@ class SpringBar extends StatelessWidget{
 
         List<Widget> springs = new List();
 
-        Player player = ui.player;
+        Player player = ui.interfacePlayer;
 
         if(player.getSpring(ui.position) != null || (ui.move is TakeSpringMove)) springs.add(
           Container(
@@ -230,7 +318,7 @@ class SpringCard extends StatelessWidget{
         padding: const EdgeInsets.all(8.0),
 
         child: CustomPaint(
-          painter: SpringPaint(player),
+          painter: SpringPaint(player, UI.of(context).ui, 20),
         ),
       ),
     );
@@ -242,31 +330,31 @@ class SpringCard extends StatelessWidget{
 class SpringPaint extends CustomPainter {
 
   final Player player;
+  final FlutterInterface ui;
+  final double springSize;
 
-
-  SpringPaint(this.player);
+  SpringPaint(this.player, this.ui, this.springSize);
 
   @override
   void paint(Canvas canvas, Size size) {
 
-    double hexSize = 20.0;
     double blurSigma = 3.0;
 
     final shadowPaint = Paint()
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurSigma)
       ..color = Colors.black;
 
-    var center = Offset(hexSize * 0.6 , hexSize * 0.6);
+    var center = Offset(springSize * 0.6 , springSize * 0.6);
 
-    canvas.drawCircle(center, hexSize, shadowPaint);
+    canvas.drawCircle(center, springSize, shadowPaint);
 
     final paint = Paint();
 
-    paint.color = FlutterInterface.getColor(player.color);
+    paint.color = ui.player == player ? FlutterInterface.getColor(player.color) : FlutterInterface.getColor(Board.COLOR_GREY);
 
-    center = Offset(hexSize * 0.5, hexSize * 0.5);
+    center = Offset(springSize * 0.5, springSize * 0.5);
 
-    canvas.drawCircle(center, hexSize, paint);
+    canvas.drawCircle(center, springSize, paint);
   }
 
   @override
