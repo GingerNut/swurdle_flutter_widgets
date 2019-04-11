@@ -280,6 +280,35 @@ class SpringBar extends StatelessWidget{
 
         if(ui.move is TakeSpringMove) springs.add(SpringCard(ui.player));
 
+        if(ui.interfacePlayer.passes == 1){
+          
+          springs.add(Expanded(
+              child: Container(
+
+              )));
+          
+          springs.add(
+              Container(
+                height: 50,
+                width: 50,
+                child: FittedBox(
+                  child: Center(
+                    child: Icon(
+                      Icons.gavel,
+                      color: Colors.black,
+                    ),
+
+                  ),
+                ),
+              )
+          );
+
+          springs.add(Container(
+            width: 40,
+
+          ));
+        } 
+
         return Container(
 
           height: 50,
@@ -386,26 +415,37 @@ class BottomBar extends StatelessWidget{
               Icon(Icons.arrow_back),
                   (){
                     ui.doMove();
-              }
+              },
+             Theme.of(context).accentColor,
 
           ),
           Button(
               Icon(Icons.arrow_forward),
                   (){
                     ui.changeScreen.add(GameMessage(Event.goToStartScreen));
-              }
+              },
+            Theme.of(context).accentColor,
 
           ),
 
-          Button(
-              Icon(Icons.alarm),
-                  (){
-                ui.move = PassMove(ui.player);
-                ui.doMove();
+                StreamBuilder<GameMessage>(
+                  stream: ui.events.stream,
+                  builder: (context, snapshot) {
 
-              }
+                    return Button(
+                        Icon(Icons.alarm),
+                            (){
+                          if(ui.doMoveSafe)ui.move = PassMove(ui.player);
+                          if(ui.doMoveSafe) ui.doMove();
 
-          ),
+                        },
+                      ui.doMoveSafe ? Theme.of(context).accentColor : Theme.of(context).primaryColor ,
+
+                    );
+                  }
+                ),
+
+
 
           Button(
               Icon(Icons.help),
@@ -413,7 +453,8 @@ class BottomBar extends StatelessWidget{
                ui.newGame(Game.randomSize());
 
                ui.events.add(GameMessage(Event.newGame));
-              }
+              },
+             Theme.of(context).accentColor,
 
           )
 
@@ -430,8 +471,9 @@ class Button extends StatelessWidget{
 
   final Icon icon;
   final Function onPressed;
+  final Color color;
 
-  Button(this.icon, this.onPressed);
+  Button(this.icon, this.onPressed, this.color);
   
   @override
   Widget build(BuildContext context) {
@@ -442,7 +484,7 @@ class Button extends StatelessWidget{
         child: ClipRRect(
           borderRadius: BorderRadius.circular(80.0),
           child: RaisedButton(
-            color: Theme.of(context).accentColor,
+            color: color,
             onPressed: onPressed,
             child: icon,
           ),

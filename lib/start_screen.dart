@@ -34,8 +34,6 @@ class StartTopBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    FlutterInterface ui= UI.of(context).ui;
-
     return Container(
       color: Theme.of(context).primaryColor,
 
@@ -81,14 +79,16 @@ class StartBottomBar extends StatelessWidget{
                   (){
                 ui.doMove();
                 ui.events.add(GameMessage(Event.reDraw));
-              }
+              },
+             Theme.of(context).accentColor,
 
           ),
           Button(
               Icon(Icons.arrow_forward),
                   (){
                     ui.changeScreen.add(GameMessage(Event.goToGameScreen));
-              }
+              },
+            Theme.of(context).accentColor,
 
           ),
           Button(
@@ -97,7 +97,8 @@ class StartBottomBar extends StatelessWidget{
                 ui.newGame(Game.randomSize());
 
 
-              }
+              },
+            Theme.of(context).accentColor,
 
           )
 
