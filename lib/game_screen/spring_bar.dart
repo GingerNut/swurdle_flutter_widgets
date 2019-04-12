@@ -189,21 +189,23 @@ class Timer extends StatelessWidget{
       stream: player.timer.events.stream,
       builder: (context, snapshot) {
 
-        String minutes = '';
-        String seconds = player.timer.seconds;
-        String tenths = player.timer.tenths;
+        String string = 'timer ';
 
         if(snapshot != null){
 
-          seconds = snapshot.data == null ? '' : snapshot.data.seconds;
-          tenths = snapshot.data == null ? '' : snapshot.data.tenths;
+         String seconds = snapshot.data == null ? '' : snapshot.data.seconds;
+         String tenths = snapshot.data == null ? '' : snapshot.data.tenths;
+
+          string =  player.timer.timeLeft > 10.0 ? seconds + ' ' : seconds + ' . ' + tenths + ' ';
+
+          if(player.timeLeft < 0.1) string = 'OUT ';
         }
 ;
         return Container(
           height: 50,
           width: 50,
           child: Text(
-            player.timer.timeLeft > 10.0 ? seconds : seconds + ' . ' + tenths,
+            string,
             style: TextStyle(
               color: Colors.white,
                   fontSize: 25,
