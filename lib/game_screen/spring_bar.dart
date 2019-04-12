@@ -192,11 +192,8 @@ class Timer extends StatelessWidget{
         String string = 'timer ';
 
         if(snapshot != null){
-         String minutes = snapshot.data == null ? '' : snapshot.data.minutes;
-         String seconds = snapshot.data == null ? '' : snapshot.data.seconds;
-         String tenths = snapshot.data == null ? '' : snapshot.data.tenths;
 
-          string =  player.timer.timeLeft > 10.0 ? minutes + 'm ' + seconds + 's ' : seconds + ' . ' + tenths + ' ';
+          string = snapshot.data == null ? 'timer' : snapshot.data.display;
 
           if(player.timeLeft < 0.1) string = 'OUT ';
         }

@@ -7,6 +7,7 @@ import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 import 'package:swurdle_flutter_widgets/game_screen/game_screen.dart';
 import 'package:swurdle_flutter_widgets/start_screen.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
+import 'package:swurdle_flutter_widgets/win_screen.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
 
     GameScreen gameScreen = GameScreen();
     StartScreen startScreen = StartScreen();
+    WinScreen winScreen = WinScreen();
     Widget screen = startScreen;
 
     return MaterialApp(
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
 
                 if(snapshot?.data?.event == Event.goToGameScreen) screen = gameScreen;
                 else if(snapshot?.data?.event == Event.goToStartScreen) screen = startScreen;
-                else if(snapshot?.data?.event == Event.goToWinScreen) screen = startScreen;
+                else if(snapshot?.data?.event == Event.goToWinScreen) screen = winScreen;
 
                 return screen;
               }
