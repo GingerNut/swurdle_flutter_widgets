@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
 
                 if(snapshot?.data?.event == Event.goToGameScreen) screen = gameScreen;
                 else if(snapshot?.data?.event == Event.goToStartScreen) screen = startScreen;
+                else if(snapshot?.data?.event == Event.goToWinScreen) screen = startScreen;
 
                 return screen;
               }

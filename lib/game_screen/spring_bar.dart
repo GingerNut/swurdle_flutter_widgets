@@ -185,30 +185,32 @@ class Timer extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return StreamBuilder<TimerMessage>(
+    return StreamBuilder<TimeStamp>(
       stream: player.timer.events.stream,
       builder: (context, snapshot) {
 
         String string = 'timer ';
 
         if(snapshot != null){
-
+         String minutes = snapshot.data == null ? '' : snapshot.data.minutes;
          String seconds = snapshot.data == null ? '' : snapshot.data.seconds;
          String tenths = snapshot.data == null ? '' : snapshot.data.tenths;
 
-          string =  player.timer.timeLeft > 10.0 ? seconds + ' ' : seconds + ' . ' + tenths + ' ';
+          string =  player.timer.timeLeft > 10.0 ? minutes + 'm ' + seconds + 's ' : seconds + ' . ' + tenths + ' ';
 
           if(player.timeLeft < 0.1) string = 'OUT ';
         }
 ;
         return Container(
           height: 50,
-          width: 50,
-          child: Text(
-            string,
-            style: TextStyle(
-              color: Colors.white,
-                  fontSize: 25,
+          
+          child: Center(
+            child: Text(
+              string,
+              style: TextStyle(
+                color: Colors.white,
+                    fontSize: 25,
+              ),
             ),
           ),
         );
