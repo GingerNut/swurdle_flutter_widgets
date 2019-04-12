@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 
@@ -14,13 +13,6 @@ import 'package:swurdle_flutter_widgets/main.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 
 
-AssetBundle _initBundle() {
-  if (rootBundle != null)
-    return rootBundle;
-  return new NetworkAssetBundle(new Uri.directory(Uri.base.origin));
-}
-
-final AssetBundle _bundle = _initBundle();
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

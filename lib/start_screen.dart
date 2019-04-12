@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
-import 'package:swurdle_flutter_widgets/game_screen.dart';
+import 'package:swurdle_flutter_widgets/game_screen/game_screen.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
 import 'package:swurdlelogic/swurdlelogic.dart';
 

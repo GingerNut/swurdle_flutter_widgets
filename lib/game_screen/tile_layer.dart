@@ -3,7 +3,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
-import 'package:swurdle_flutter_widgets/hexagon.dart';
+import 'package:swurdle_flutter_widgets/game_screen/hexagon.dart';
 import 'package:swurdle_flutter_widgets/ui_widget.dart';
 
 class TileLayer extends StatelessWidget{
