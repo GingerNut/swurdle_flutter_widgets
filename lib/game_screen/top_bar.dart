@@ -19,7 +19,10 @@ class TopBar extends StatelessWidget{
           builder: (context, snapshot) {
 
             List<Scorecard> scores = new List();
-            ui.game.players.forEach((p) => scores.add(Scorecard(p)));
+            ui.game.players.forEach((p) {
+
+              if(p.status(ui.position) != PlayerStatus.out) scores.add(Scorecard(p));
+            } );
 
             return Container(
 
