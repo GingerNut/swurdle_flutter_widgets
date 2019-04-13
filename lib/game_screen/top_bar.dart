@@ -104,7 +104,7 @@ class Scorecard extends StatelessWidget{
                   ),
                 ),);
 
-                column.add(StatusCard(player));
+                if(!ui.game.gameOver) column.add(StatusCard(player));
 
 
                 return Container(
