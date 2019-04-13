@@ -1,5 +1,6 @@
+import 'dart:ui';
 
-
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:swurdle_flutter_widgets/game_screen/board.dart';
 import 'package:swurdle_flutter_widgets/game_screen/game_screen.dart';
@@ -14,25 +15,58 @@ class WinScreen extends StatelessWidget{
 
     FlutterBoard board = FlutterBoard();
     TopBar topBar = TopBar();
-    StatusBar statusBar = StatusBar();
     BottomBar bottomBar = BottomBar();
-    SpringBar springBar = SpringBar();
+
 
     return StreamBuilder<GameMessage>(
         stream: UI.of(context).ui.events.stream,
-    builder: (context, snapshot) {
+        builder: (context, snapshot) {
 
-    if(snapshot?.data?.event == Event.newGame) board = FlutterBoard();
+          if(snapshot?.data?.event == Event.newGame) board = FlutterBoard();
 
-    return Column(
-      children:<Widget>[topBar,
-             board,
-             bottomBar,
-      ]
+          return Stack(
 
-    );
 
-    });
+            children: [
+              BackdropFilter(
+
+                filter: ImageFilter.blur(
+                  sigmaX: 20,
+                  sigmaY: 20,
+                ),
+
+                child: Container(
+                  color: Colors.black.withOpacity(0),
+                  
+                  child: Column( 
+                    children:<Widget>[
+
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              color: Theme.of(context).primaryColor,
+                            height: 100,
+                        ),
+                          )
+                        ]
+                      ),
+
+                    board,
+                    bottomBar,
+                    ]
+
+                      ),
+                ),
+              ),
+
+            Center(
+                child: topBar)
+
+            ]
+          );
+
+        });
 
   }
 }

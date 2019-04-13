@@ -17,7 +17,6 @@ class GameScreen extends StatelessWidget {
 
     FlutterBoard board = FlutterBoard();
     TopBar topBar = TopBar();
-    StatusBar statusBar = StatusBar();
     BottomBar bottomBar = BottomBar();
     SpringBar springBar = SpringBar();
 
@@ -33,7 +32,6 @@ class GameScreen extends StatelessWidget {
          mainAxisSize: MainAxisSize.min,
          children: <Widget>[
            topBar,
-           statusBar,
            board,
            springBar,
            bottomBar,
@@ -49,94 +47,6 @@ class GameScreen extends StatelessWidget {
   }
 
 }
-
-
-class StatusBar extends StatelessWidget {
-
-  Widget build(BuildContext context) {
-    FlutterInterface ui = UI
-        .of(context)
-        .ui;
-
-
-    return StreamBuilder<GameMessage>(
-        stream: ui.events.stream,
-        builder: (context, snapshot) {
-
-          List<StatusCard> statusCards = new List();
-          ui.game.players.forEach((p) => statusCards.add(StatusCard(p)));
-
-          return Container(
-
-            color: Theme
-                .of(context)
-                .primaryColor,
-
-            height: 50,
-
-            child: Row(
-
-              children: statusCards,
-
-            ),
-          );
-        }
-    );
-  }
-}
-
-class StatusCard extends StatelessWidget{
-
-  final Player player;
-
-  const StatusCard(this.player);
-
-  Widget build(BuildContext context) {
-
-    FlutterInterface ui = UI.of(context).ui;
-
-    return StreamBuilder<Object>(
-      stream: ui.events.stream,
-      builder: (context, snapshot) {
-
-        List<Widget> springs = new List();
-
-        springs.add(Expanded(
-          child: Container(),
-        ));
-
-        player.springs(ui.position).forEach((s) {
-
-          if(s.tile == null) springs.add(
-              SizedBox(
-                height: 30,
-                width: 30,
-
-                child: CustomPaint(
-                  painter: SpringPaint(player, UI.of(context).ui, 10),
-                ),
-              )
-          );
-
-        });
-
-        springs.add(Expanded(
-          child: Container(),
-        ));
-
-        return Expanded(
-          child: Row(
-
-
-            children: springs
-          ),
-        );
-      }
-    );
-  }
-
-}
-
 
 
 

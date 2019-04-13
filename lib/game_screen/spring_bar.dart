@@ -68,7 +68,7 @@ class SpringBar extends StatelessWidget{
             ));
           }
 
-          if(ui.game.settings.timer) springs.add(Timer(ui.interfacePlayer));
+          if(ui.game.settings.timer) springs.add(Timer(ui.interfacePlayer, 50));
 
           return Container(
 
@@ -179,8 +179,9 @@ class PassWarning extends StatelessWidget{
 class Timer extends StatelessWidget{
 
   final Player player;
+  final double height;
 
-  const Timer(this.player);
+  const Timer(this.player, this.height);
 
   @override
   Widget build(BuildContext context) {
@@ -199,14 +200,14 @@ class Timer extends StatelessWidget{
         }
 ;
         return Container(
-          height: 50,
+          height: height,
           
           child: Center(
             child: Text(
               string,
               style: TextStyle(
                 color: Colors.white,
-                    fontSize: 25,
+                    fontSize: height /2,
               ),
             ),
           ),

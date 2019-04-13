@@ -86,7 +86,7 @@ class StartBottomBar extends StatelessWidget{
           Button(
               Icon(Icons.arrow_forward),
                   (){
-                    ui.changeScreen.add(GameMessage(Event.goToGameScreen));
+
               },
             Theme.of(context).accentColor,
 
@@ -95,7 +95,7 @@ class StartBottomBar extends StatelessWidget{
               Icon(Icons.help),
                   (){
                 ui.newGame(Game.randomSize());
-
+                ui.changeScreen.add(GameMessage(Event.goToGameScreen));
 
               },
             Theme.of(context).accentColor,
