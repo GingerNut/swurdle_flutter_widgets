@@ -170,9 +170,9 @@ class StatusCard extends StatelessWidget{
           List<Widget> springs = new List();
 
 
-          player.springs(ui.position).forEach((s) {
+          player.freeSprings(ui.position).forEach((s) {
 
-            if(s.tile == null) springs.add(
+            springs.add(
                 SizedBox(
                   height: 30,
                   width: 30,
@@ -191,7 +191,7 @@ class StatusCard extends StatelessWidget{
             color: Colors.white,
           ));
 
-          springs.add(Timer(player,50));
+          springs.add(TimerCard(player,50));
 
 
           return Row(

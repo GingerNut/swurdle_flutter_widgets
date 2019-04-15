@@ -15,7 +15,7 @@ import 'package:swurdlelogic/swurdlelogic.dart';
 main() async{
 
   FlutterInterface ui = new FlutterInterface();
-  Game game = new Game(ui);
+  SwurdleGame game = new SwurdleGame(ui);
   ui.game = game;
 
   await game.setUp();

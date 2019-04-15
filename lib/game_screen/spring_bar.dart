@@ -41,9 +41,9 @@ class SpringBar extends StatelessWidget{
           );
 
 
-          player.springs(ui.position).forEach((s) {
+          player.freeSprings(ui.position).forEach((s) {
 
-            if(s.tile == null) springs.add(SpringCard(ui.player));
+            springs.add(SpringCard(ui.player));
           } );
 
           if(ui.move is TakeSpringMove) springs.add(SpringCard(ui.player));
@@ -68,7 +68,7 @@ class SpringBar extends StatelessWidget{
             ));
           }
 
-          if(ui.game.settings.timer) springs.add(Timer(ui.interfacePlayer, 50));
+          if(ui.game.settings.timer) springs.add(TimerCard(ui.interfacePlayer, 50));
 
           return Container(
 
@@ -176,12 +176,12 @@ class PassWarning extends StatelessWidget{
     );
   }}
 
-class Timer extends StatelessWidget{
+class TimerCard extends StatelessWidget{
 
   final Player player;
   final double height;
 
-  const Timer(this.player, this.height);
+  const TimerCard(this.player, this.height);
 
   @override
   Widget build(BuildContext context) {

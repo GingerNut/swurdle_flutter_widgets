@@ -10,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:swurdle_flutter_widgets/flutter_interface.dart';
 
 import 'package:swurdle_flutter_widgets/main.dart';
-import 'package:swurdlelogic/swurdlelogic.dart';
 
 
 
