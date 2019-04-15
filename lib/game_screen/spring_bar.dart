@@ -141,7 +141,7 @@ class SpringPaint extends CustomPainter {
 
     final paint = Paint();
 
-    paint.color = ui.player == player ? FlutterInterface.getColor(player.color) : FlutterInterface.getColor(Board.COLOR_GREY);
+    paint.color = ui.player == player ? FlutterInterface.getColor(player.color) : FlutterInterface.getColor(Palette.COLOR_GREY);
 
     center = Offset(springSize * 0.5, springSize * 0.5);
 
@@ -206,7 +206,7 @@ class TimerCard extends StatelessWidget{
             child: Text(
               string,
               style: TextStyle(
-                color: Colors.white,
+                color: FlutterInterface.getColor(Palette.colorCombo(player.color)),
                     fontSize: height /2,
               ),
             ),

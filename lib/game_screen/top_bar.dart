@@ -80,7 +80,7 @@ class Scorecard extends StatelessWidget{
               stream: ui.events.stream,
               builder: (context, snapshot) {
 
-                Color color = player == ui.position.player ? FlutterInterface.getColor(player.color) : FlutterInterface.getColor(Board.COLOR_GREY);
+                Color color = player == ui.position.player ? FlutterInterface.getColor(player.color) : FlutterInterface.getColor(Palette.COLOR_GREY);
 
                 if(ui.game.gameOver) color = FlutterInterface.getColor(player.color);
 
@@ -90,7 +90,7 @@ class Scorecard extends StatelessWidget{
                   Text(
                     'Winner !',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: FlutterInterface.getColor(Palette.colorCombo(player.color)),
                     ),
 
                   )
@@ -99,7 +99,7 @@ class Scorecard extends StatelessWidget{
                 column.add(Text (
                   player.score(ui.position).toString(),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: FlutterInterface.getColor(Palette.colorCombo(player.color)),
                     fontSize: 40,
                   ),
                 ),);

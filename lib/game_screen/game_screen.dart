@@ -50,9 +50,6 @@ class GameScreen extends StatelessWidget {
 
 }
 
-
-
-
 class BottomBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -68,17 +65,32 @@ class BottomBar extends StatelessWidget{
         children: <Widget>[
 
           Button(
-              Icon(Icons.arrow_back),
+            Icon(Icons.arrow_back),
+                (){
+              ui.reset();
+            },
+            Theme.of(context).accentColor,
+
+          ),
+
+          Button(
+            Icon(Icons.arrow_forward),
+                (){
+              ui.reset();
+            },
+            Theme.of(context).accentColor,
+
+          ),
+
+          Button(
+              Icon(Icons.restore),
                   (){
-                    ui.doMove();
+                    ui.reset();
               },
              Theme.of(context).accentColor,
 
           ),
          DoMoveButton(),
-
-          DoPassButton(),
-
 
           Button(
               Icon(Icons.help),
@@ -100,6 +112,7 @@ class BottomBar extends StatelessWidget{
 
 }
 
+
 class DoMoveButton extends StatefulWidget{
 
   @override
@@ -107,55 +120,7 @@ class DoMoveButton extends StatefulWidget{
 }
 
 class _DoMoveButtonState extends State<DoMoveButton> {
-  bool OK = true;
 
-  @override
-  Widget build(BuildContext context) {
-
-
-
-    FlutterInterface ui = UI.of(context).ui;
-
-
-    return  Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: RaisedButton(
-            color: OK ? Theme.of(context).accentColor : FlutterInterface.getColor(Board.COLOR_GREY),
-            onPressed: () async{
-              ui.doMove();
-
-              OK = false;
-
-              ui.events.add(GameMessage(Event.reDraw));
-
-              Timer(Duration(milliseconds: 1000), () {
-
-                OK = true;
-
-                ui.events.add(GameMessage(Event.reDraw));
-              });
-
-            },
-            child: Icon(
-              Icons.play_arrow,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DoPassButton extends StatefulWidget{
-
-  @override
-  _DoPassButtonState createState() => _DoPassButtonState();
-}
-
-class _DoPassButtonState extends State<DoPassButton> {
   bool OK = true;
 
   @override
@@ -163,34 +128,40 @@ class _DoPassButtonState extends State<DoPassButton> {
 
     FlutterInterface ui = UI.of(context).ui;
 
-    return  Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: RaisedButton(
-            color: OK ? Theme.of(context).accentColor : FlutterInterface.getColor(Board.COLOR_GREY),
-            onPressed: () async{
-              ui.pass();
+    return  StreamBuilder<GameMessage>(
+      stream: ui.events.stream,
+      builder: (context, snapshot) {
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(80.0),
+              child: RaisedButton(
 
-              OK = false;
+                color: OK ? Theme.of(context).accentColor : FlutterInterface.getColor(Palette.COLOR_GREY),
 
-              ui.events.add(GameMessage(Event.reDraw));
+                onPressed: () {
+                  print(OK);
+                  if(OK) ui.doMove();
+                  OK = false;
+                  ui.events.add(GameMessage(Event.reDraw));
+                  print(OK);
 
-              Timer(Duration(milliseconds: 1000), () {
+                  Timer(Duration(milliseconds: 1500), () {
+                    OK = true;
 
-                OK = true;
+                    ui.events.add(GameMessage(Event.reDraw));
+                  });
 
-                ui.events.add(GameMessage(Event.reDraw));
-              });
-
-            },
-            child: Icon(
-              Icons.gavel,
+                },
+                child: Icon(
+                  ui.move == null ? Icons.gavel : Icons.arrow_right,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

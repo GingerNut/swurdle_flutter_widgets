@@ -22,37 +22,44 @@ class FlutterInterface extends Interface{
 
    static Color getColor(int color){
     switch(color){
-      case Board.COLOR_NONE:
-        return Colors.amberAccent;
 
-      case Board.COLOR_BLUE:
-        return Colors.blue;
-
-      case Board.COLOR_GOLD:
-        return Colors.amber;
-
-      case Board.COLOR_GREY:
-        return Colors.grey;
-
-      case Board.COLOR_PURPLE:
-        return Colors.purple;
-
-      case Board.COLOR_RED:
-        return Colors.red;
-
-      case Board.COLOR_SELECTED:
-        return Colors.brown;
-
-      case Board.COLOR_WORD_DISSOLVED:
-        return Colors.pinkAccent;
-
-      case Board.COLOR_MOVE_GOOD:
-        return Colors.green;
-
-      case Board.COLOR_LETTER_DARK:
+      case Palette.COLOR_BLACK:
         return Colors.black;
 
-      case Board.COLOR_LETTER_LIGHT:
+      case Palette.COLOR_WHITE:
+        return Colors.white;
+
+      case Palette.COLOR_NONE:
+        return Colors.amberAccent;
+
+      case Palette.COLOR_BLUE:
+        return Colors.blue;
+
+      case Palette.COLOR_GOLD:
+        return Colors.amber;
+
+      case Palette.COLOR_GREY:
+        return Colors.grey;
+
+      case Palette.COLOR_PURPLE:
+        return Colors.purple;
+
+      case Palette.COLOR_RED:
+        return Colors.red;
+
+      case Palette.COLOR_SELECTED:
+        return Colors.brown;
+
+      case Palette.COLOR_WORD_DISSOLVED:
+        return Colors.pinkAccent;
+
+      case Palette.COLOR_MOVE_GOOD:
+        return Colors.green;
+
+      case Palette.COLOR_LETTER_DARK:
+        return Colors.black;
+
+      case Palette.COLOR_LETTER_LIGHT:
         return Colors.white;
 
     }
