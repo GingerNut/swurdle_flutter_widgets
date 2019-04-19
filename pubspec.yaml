@@ -27,6 +27,8 @@ dependencies:
 
   swurdlelogic:
     path: C:\Users\Stephen\growing_games\swurdlelogic
+  boardgame:
+    path: C:\Users\Stephen\growing_games\boardgame
 
   localstorage:
 
@@ -43,3 +45,4 @@ flutter:
   uses-material-design: true
   assets:
     - packages/swurdlelogic/assets/words172000R.txt
+    - packages/swurdlelogic/assets/words5000R.txt

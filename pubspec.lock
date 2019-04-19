@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "2.1.0"
   boardgame:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "C:\\Users\\Stephen\\growing_games\\boardgame"
       relative: false

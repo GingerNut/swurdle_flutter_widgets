@@ -93,8 +93,9 @@ class StartBottomBar extends StatelessWidget{
           ),
           Button(
               Icon(Icons.help),
-                  (){
-                ui.newGame(SwurdleGame.randomSize());
+                  () async{
+                await ui.newGame(SwurdleGame.randomSize());
+                ui.events.add(GameMessage(Event.newGame));
                 ui.changeScreen.add(GameMessage(Event.goToGameScreen));
 
               },

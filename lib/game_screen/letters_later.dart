@@ -16,14 +16,24 @@ class LettersLayer extends StatelessWidget {
         .of(context)
         .ui;
 
-    ui.tiles.forEach((t) {
-      pieces.add(FlutterLetter(t));
-    });
 
-    return Stack(
+    return StreamBuilder<GameMessage>(
+      stream: ui.events.stream,
+      builder: (context, snapshot) {
 
-      children: pieces,
+        pieces.clear();
 
+        ui.tiles.forEach((t) {
+          pieces.add(FlutterLetter(t));
+        });
+
+
+        return Stack(
+
+          children: pieces,
+
+        );
+      }
     );
   }
 }

@@ -141,7 +141,6 @@ class _DoMoveButtonState extends State<DoMoveButton> {
                 color: OK ? Theme.of(context).accentColor : FlutterInterface.getColor(Palette.COLOR_GREY),
 
                 onPressed: () {
-                  print(OK);
                   if(OK) ui.doMove();
                   OK = false;
                   ui.events.add(GameMessage(Event.reDraw));

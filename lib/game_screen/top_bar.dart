@@ -23,7 +23,7 @@ class TopBar extends StatelessWidget{
             List<Scorecard> scores = new List();
             ui.game.players.forEach((p) {
 
-              if(p.status(ui.position) != PlayerStatus.out) scores.add(Scorecard(p));
+              if(ui.position.playerStatus[p.number] != PlayerStatus.out) scores.add(Scorecard(p));
             } );
 
             List<Widget> column = new List();
@@ -97,7 +97,7 @@ class Scorecard extends StatelessWidget{
                 );
 
                 column.add(Text (
-                  player.score(ui.position).toString(),
+                  ui.position.score[player.number].truncate().toString(),
                   style: TextStyle(
                     color: FlutterInterface.getColor(Palette.colorCombo(player.color)),
                     fontSize: 40,
@@ -170,7 +170,7 @@ class StatusCard extends StatelessWidget{
           List<Widget> springs = new List();
 
 
-          player.freeSprings(ui.position).forEach((s) {
+          ui.position.freeSprings(player).forEach((s) {
 
             springs.add(
                 SizedBox(
@@ -186,7 +186,7 @@ class StatusCard extends StatelessWidget{
 
           });
 
-          if(player.passes == 1) springs.add(Icon(
+          if(ui.position.passes[player.number] == 1) springs.add(Icon(
             Icons.gavel,
             color: Colors.white,
           ));

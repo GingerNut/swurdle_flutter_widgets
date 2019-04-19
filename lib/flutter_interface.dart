@@ -2,8 +2,9 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/services.dart';
-import 'package:swurdlelogic/swurdlelogic.dart';
+
 import 'package:flutter/material.dart';
+import 'package:swurdlelogic/swurdlelogic.dart';
 
 
 AssetBundle _initBundle() {
@@ -14,7 +15,7 @@ AssetBundle _initBundle() {
 
 final AssetBundle _bundle = _initBundle();
 
-class FlutterInterface extends Interface{
+class FlutterInterface extends SwurdleInterface{
 
   Future<String> loadString(String fileName) async{
     return await _bundle.loadString('packages/swurdlelogic/assets/' + fileName);

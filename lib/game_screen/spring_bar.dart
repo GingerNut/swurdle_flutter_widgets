@@ -20,7 +20,7 @@ class SpringBar extends StatelessWidget{
 
           Player player = ui.interfacePlayer;
 
-          if(player.getSpring(ui.position) != null || (ui.move is TakeSpringMove)) springs.add(
+          if(ui.position.getSpring(player) != null || (ui.move is TakeSpringMove)) springs.add(
               Container(
                 height: 50,
 
@@ -41,7 +41,7 @@ class SpringBar extends StatelessWidget{
           );
 
 
-          player.freeSprings(ui.position).forEach((s) {
+          ui.position.freeSprings(player).forEach((s) {
 
             springs.add(SpringCard(ui.player));
           } );
@@ -54,7 +54,7 @@ class SpringBar extends StatelessWidget{
 
                   )));
 
-          if(ui.interfacePlayer.passes == 1){
+          if(ui.position.passes[ui.interfacePlayer.number] == 1){
 
 
 

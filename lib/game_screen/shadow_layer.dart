@@ -15,18 +15,26 @@ class ShadowLayer extends StatelessWidget{
 
     FlutterInterface ui = UI.of(context).ui;
 
-    ui.tiles.forEach((t) {
-      pieces.add(Shadow(t));
-    });
+    return StreamBuilder<GameMessage>(
+      stream: ui.events.stream,
+      builder: (context, snapshot) {
 
-    return Opacity(
-      opacity: 0.8,
+        pieces.clear();
 
-      child: Stack(
+        ui.tiles.forEach((t) {
+          pieces.add(Shadow(t));
+        });
 
-        children: pieces,
+        return Opacity(
+          opacity: 0.8,
 
-      ),
+          child: Stack(
+
+            children: pieces,
+
+          ),
+        );
+      }
     );
   }
 
